@@ -1,0 +1,57 @@
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.burger-buttom {
+  background-color: transparent;
+  border: none;
+}
+
+.menu-list {
+  display: flex;
+  gap: 32px;
+}
+
+.menu-link {
+  font-family: var(--font-family);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-scheme-1-text);
+}
+.logo:hover,
+.logo:focus,
+.menu-link:hover,
+.menu-link:focus {
+  opacity: 0.4;
+}
+
+.logo-text {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: bolder;
+  color: var(--color-scheme-1-text);
+}
+
+@media only screen and (min-width: 768px) {
+  .burger-buttom {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .menu-nav .menu-list {
+    display: none; /* Скрываем меню на мобильном */
+  }
+  .burger {
+    display: block; /* Показываем бургер */
+  }
+}

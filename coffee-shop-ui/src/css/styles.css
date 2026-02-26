@@ -1,0 +1,20 @@
+@import './hero.css';
+
+/* Common styles */
+@import url('./reset.css');
+@import url('./base.css');
+@import url('./container.css');
+
+/* Sections style */
+/* src/css/main.css */
+@import './header.css';
+@import './welcome.css';
+@import './quality.css';
+@import './experience.css';
+@import './subscribe.css';
+@import './testimonials.css';
+@import './location.css';
+@import './footer.css';
+@import './mobile-menu.css';
+@import './success-subscription.css';
+@import './catalog.css';

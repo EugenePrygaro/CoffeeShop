@@ -1,0 +1,189 @@
+.section-success-subscription {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  pointer-events: none;
+  padding: 0px 16px;
+}
+
+.section-success-subscription.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.success-subscription {
+  margin: 0 auto;
+  background-color: #e0cbb4;
+  border-radius: 40px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transform: scale(0.95);
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+  padding: 64px 0px;
+  overflow: hidden; /* Добавлено: скрываем обрезки углов изображения */
+  background-clip: padding-box; /* Добавлено: предотвращаем просачивание фона в border-radius */
+  -webkit-background-clip: padding-box; /* Для старых браузеров */
+}
+
+.section-success-subscription.is-open .success-subscription {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.success-subscription-wrapper {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.title-success-subscription {
+  font-family: var(--second-family);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--color-scheme-1-text);
+  margin-bottom: 16px;
+}
+
+.text-success-subscription {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--color-scheme-1-text);
+  margin-bottom: 24px;
+}
+
+.success-subscription-img {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  margin: 0 auto;
+  margin-bottom: 24px;
+}
+
+.btn-success-subscription {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px 0 var(--opacity-neutral-darkest-5),
+    inset 0 -2px 1px 0 rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px var(--opacity-neutral-darkest-15),
+    inset 0 2px 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 32px 24px 0 var(--opacity-white-5);
+  background: var(--color-coffee-dark);
+  border-radius: 100px;
+  padding: 10px 24px;
+  width: 100%;
+  height: 44px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  margin: 0 auto 0 0;
+}
+
+.btn-success-subscription:hover,
+.btn-success-subscription:focus-visible {
+  opacity: 0.8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.section-success-subscription:not(.is-open):hover {
+  opacity: 0.1;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.subscription-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 300ms ease-in-out;
+}
+
+@media only screen and (min-width: 1440px) {
+  .success-subscription {
+    width: 866px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    min-width: auto;
+  }
+  .success-subscription-img {
+    width: 256px;
+    height: 200px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .success-subscription {
+    width: 100%;
+    padding: 64px 16px; /* Добавлено: чуть больше отступов по бокам на супер-малых, чтоб фото не жало */
+  }
+}
+@media only screen and (min-width: 768px) {
+  .section-success-subscription {
+    padding: 32px;
+  }
+  .success-subscription {
+    max-width: 704px;
+  }
+  .btn-success-subscription {
+    width: 340px;
+    margin: 0 auto;
+  }
+  .success-subscription-img {
+    border-radius: 40px;
+  }
+  .title-success-subscription {
+    font-size: 36px;
+  }
+  .success-subscription-img {
+    width: 644px;
+    height: 374px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .section-success-subscription {
+    padding: 64px;
+  }
+  .success-subscription {
+    max-width: 886px;
+  }
+  .title-success-subscription {
+    font-size: 48px;
+  }
+  .btn-success-subscription {
+    width: 274px;
+  }
+}

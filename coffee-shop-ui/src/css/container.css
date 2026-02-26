@@ -1,0 +1,22 @@
+.container {
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 0px 16px;
+  width: 100%;
+}
+
+.site-header {
+  padding: 18px 0px;
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    padding: 0px 32px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .container {
+    padding: 0 64px;
+  }
+}
