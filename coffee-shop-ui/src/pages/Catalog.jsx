@@ -3,20 +3,35 @@ import React, { useEffect, useState } from 'react';
 import { initMobileMenu } from '../js/mobile-menu';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
+import { richProductsWithImg } from '../js/products';
 
 const Catalog = () => {
-  // Тимчасові дані (mock data) для верстки, поки бекенд не готовий
-  const [products] = useState([
-    { id: 1, name: "Ethiopia Arabica", price: 350, img: "/img/quality/img_05.jpg", desc: "Світле обсмаження, нотки цитрусу." },
-    { id: 2, name: "Colombia Dark", price: 420, img: "/img/quality/img_04.jpg", desc: "Темне обсмаження, шоколадний смак." },
-    { id: 3, name: "Kenya Special", price: 380, img: "/img/quality/img_03.jpg", desc: "Насичений аромат та винна кислинка." },
-    { id: 4, name: "Green Tea Sencha", price: 250, img: "/img/experience/img_11.jpg", desc: "Класичний японський зелений чай." },
-  ]);
+  // Тимчасові дані (mock data) 
+  const [products, setProducts] = useState([]);
+  const [cartItems, setCartItems] = useState([]); 
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  
+  console.log(richProductsWithImg());
 
+  useEffect(() => {
+    setProducts(richProductsWithImg());
+
+   },[]);
   useEffect(() => {
     const menu = initMobileMenu();
     return () => menu?.cleanup();
   }, []);
+  useEffect(() => {
+    if (isCartOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isCartOpen]);
+
+  const addToCart = (product) => {
+    setCartItems(prev => [...prev, product]);
+  };
 
   return (
     <>
@@ -25,7 +40,10 @@ const Catalog = () => {
       <main>
         <section className="catalog">
           <div className="container catalog-container">
-            <h1 className="catalog-title">Our goods</h1>
+            <div className='catalog-top'>
+              <h1 className="catalog-title">Our goods</h1>
+              <button className="hero-button" onClick={() => setIsCartOpen(true)}>Cart ({cartItems.length})</button>
+            </div>
             
             <ul className="catalog-list">
               {products.map(product => (
@@ -35,7 +53,7 @@ const Catalog = () => {
                   <p className="catalog-list-text">{product.desc}</p>
                   <div className='catalog-list-button'>
                     <span className='catalog-list-price'>{product.price} uah</span>
-                    <button className="hero-button">shop now</button>
+                    <button className="hero-button" onClick={() => addToCart(product)}>shop</button>
                   </div>
                 </li>
               ))}
@@ -43,6 +61,41 @@ const Catalog = () => {
           </div>
         </section>
       </main>
+        {isCartOpen && (
+        <div className="cart-backdrop" onClick={() => setIsCartOpen(false)}>
+          <div className="cart-modal" onClick={e => e.stopPropagation()}>
+            <button className="cart-close-btn" onClick={() => setIsCartOpen(false)}>×</button>
+            
+            <h2 className="quality-title">Your Cart</h2>
+            
+            {cartItems.length === 0 ? (
+              <p className="catalog-list-text">Cart is empty</p>
+            ) : (
+              <ul className="cart-items-list">
+                {cartItems.map((item, index) => (
+                  <li key={index} className="cart-item">
+                    <img src={item.img} alt={item.name} className="cart-item-img" />
+                    <div className="cart-item-info">
+                      <h4>{item.name}</h4>
+                      <p>{item.price} uah</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {cartItems.length > 0 && (
+              <div className="cart-footer">
+                <div className="cart-total-text">
+                  <span>Total:</span>
+                  <span>{cartItems.reduce((acc, curr) => acc + curr.price, 0)} uah</span>
+                </div>
+                <button className="hero-button" style={{ width: '100%' }}>Checkout</button>
+              </div>
+            )}
+          </div>
+        </div>
+  )}
 
       <Footer />
     </>

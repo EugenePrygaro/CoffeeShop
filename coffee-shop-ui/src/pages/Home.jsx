@@ -5,10 +5,8 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 const Home = () => {
   useEffect(() => {
-    // Викликаємо функцію ініціалізації меню
     const menu = initMobileMenu();
 
-    // Очищаємо слухачі подій, коли компонент видаляється (cleanup)
     return () => {
       if (menu && menu.cleanup) {
         menu.cleanup();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Використовуй Link для швидких переходів
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   return (
@@ -12,10 +12,9 @@ export const Header = () => {
             </svg>
           </Link>
           <ul className="menu-list">
-            <li><Link className="menu-link" to="/">Головна</Link></li>
-            <li><Link className="menu-link" to="/catalog">Каталог</Link></li>
-            <li><a className="menu-link" href="#quality">Переваги</a></li>
-            <li><a className="menu-link" href="#location">Контакти</a></li>
+            <li><Link className="menu-link" to="/catalog">Catalog</Link></li>
+            <li><a className="menu-link" href="#quality">Quality</a></li>
+            <li><a className="menu-link" href="#location">Contacts</a></li>
           </ul>
         </nav>
         <div className="burger">

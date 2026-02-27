@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
@@ -13,12 +14,14 @@ export const Footer = () => {
             </a>
           </div>
           <ul className="footer-menu-list">
-            <li><a className="footer-menu-link" href="#welcome">Про нас</a></li>
-            <li><a className="footer-menu-link" href="/catalog">Каталог</a></li>
+            <li><Link className="footer-menu-link" to="/catalog">Catalog</Link></li>
+            <li><a className="footer-menu-link" href="#quality">Quality</a></li>
+            <li><a className="footer-menu-link" href="#location">Contacts</a></li>
+            <li><a className="footer-menu-link" href="#welcome">About us</a></li>
           </ul>
         </div>
         <div className="footer-rights">
-          <p>© 2026 CoffeeJoy. Всі права захищені.</p>
+          <p>© 2026 CoffeeJoy</p>
         </div>
       </div>
     </footer>
