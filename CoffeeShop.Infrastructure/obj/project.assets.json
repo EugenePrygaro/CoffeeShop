@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {}
+    "net9.0": {
+      "CoffeeShop.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/CoffeeShop.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CoffeeShop.Core.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "CoffeeShop.Core/1.0.0": {
+      "type": "project",
+      "path": "../CoffeeShop.Core/CoffeeShop.Core.csproj",
+      "msbuildProject": "../CoffeeShop.Core/CoffeeShop.Core.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net9.0": []
+    "net9.0": [
+      "CoffeeShop.Core >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\priga\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {
+              "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

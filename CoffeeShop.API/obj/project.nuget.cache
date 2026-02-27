@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "z7jWCmsiDsM=",
+  "dgSpecHash": "AylT9dZ0Bzg=",
   "success": false,
   "projectFilePath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.API\\CoffeeShop.API.csproj",
   "expectedPackageFiles": [],
@@ -8,7 +8,7 @@
     {
       "code": "NU1301",
       "level": "Error",
-      "message": "Локальный источник \"C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\\" не существует.",
+      "message": "The local source 'C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\' doesn't exist.",
       "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.API\\CoffeeShop.API.csproj",
       "filePath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.API\\CoffeeShop.API.csproj",
       "libraryId": "Microsoft.AspNetCore.OpenApi",

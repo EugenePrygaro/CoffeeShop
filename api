@@ -1,0 +1,41 @@
+Товари (Products) — для Каталогу та Адмінки
+
+        GET /api/products — отримати список усіх товарів (з можливістю фільтрації через query: ?search=name).
+
+        GET /api/products/{id} — отримати деталі конкретного товару.
+
+        POST /api/products — створити новий товар (Адмінка).
+
+        PUT /api/products/{id} — редагувати товар (Адмінка).
+
+        DELETE /api/products/{id} — видалити товар (Адмінка).
+
+
+        {
+            id: 1,
+            name: 'Ethiopia Sidamo',
+            price: 320,
+            desc: '!!!{на англійській}',
+        },
+
+2. Користувачі (Users) — для Адмінки
+
+        GET /api/users — отримати список усіх користувачів (з пошуком: ?search=email).
+
+        GET /api/users/{id} — отримати дані конкретного профілю.
+
+        PATCH /api/users/{id}/role — змінити роль користувача (наприклад, з customer на admin).
+
+        DELETE /api/users/{id} — видалити або заблокувати користувача.
+
+         {
+            id: 1,
+            name: 'Ethiopia Sidamo',
+            password: 320,
+            email: '@gmail.com',
+            role: 'admin/customer'
+        },
+
+3. Замовлення (Orders) — для Кошика
+
+        POST /api/orders — створити нове замовлення
