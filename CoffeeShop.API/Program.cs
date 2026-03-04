@@ -1,41 +1,61 @@
+using dotenv.net;                    // Бібліотека для зчитування ключів з файлу .env
+using Microsoft.EntityFrameworkCore; // Ядро Entity Framework для роботи з базою
+using CoffeeShop.Infrastructure;    // Підключення твого проєкту інфраструктури (де AppDbContext)
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// --- ЗАВАНТАЖЕННЯ НАЛАШТУВАНЬ ---
+// Завантажуємо змінні оточення з файлу .env 
+DotEnv.Load();
+
+// Витягуємо рядок підключення до MySQL
+var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
+
+// --- РЕЄСТРАЦІЯ СЕРВІСІВ (Dependency Injection) ---
+
+// Реєструємо базу даних MySQL у системі
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(
+        connectionString, 
+        ServerVersion.AutoDetect(connectionString)
+    ));
+
+// Додаємо підтримку контролерів 
+builder.Services.AddControllers();
+
+// Налаштування документації API (OpenAPI/Swagger)
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// --- НАЛАШТУВАННЯ HTTP-КОНВЕЄРА (Middleware) ---
+
+// Якщо ми в режимі розробки — вмикаємо візуальну документацію запитів
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
+// Автоматичне перенаправлення на безпечне з'єднання (HTTPS)
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+// --- МАРШРУТИЗАЦІЯ ---
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+// Тут система автоматично підтягує всі методи з папки Controllers
+app.MapControllers();
 
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+// --- ТИМЧАСОВИЙ БЛОК ДЛЯ ОНОВЛЕННЯ БАЗИ ДАНИХ ---
+using (var scope = app.Services.CreateScope())
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    
+    // Викликаємо твій метод очищення та наповнення
+    DbInitializer.Initialize(context);
 }
+// ------------------------------------------------
+
+// Тут пізніше можна буде додати специфічні налаштування для логування або авторизації
+app.Run(); // Запуск всього бекенду
+
+
