@@ -28,7 +28,7 @@
 
         DELETE /api/users/{id} — видалити або заблокувати користувача.
 
-         {
+        {
             id: 1,
             name: 'Ethiopia Sidamo',
             password: 320,
@@ -36,6 +36,21 @@
             role: 'admin/customer'
         },
 
-3. Замовлення (Orders) — для Кошика
+3. Підписка (Subscriptions)
+
+        GET /api/subscriptions — отримати список усіх підписок (з пошуком за Email: ?search=email).
+
+        POST /api/subscriptions — створення нової підписки
+
+        DELETE /api/subscriptions/{id} — видалення підписки
+
+        {
+            id: 1, 
+            email: 'coffee-lover@gmail.com', 
+            date: '2025-02-10', 
+            status: 'active' 
+        }
+
+4. Замовлення (Orders) — для Кошика
 
         POST /api/orders — створити нове замовлення

@@ -73,3 +73,93 @@
   color: #666;
   font-style: italic;
 }
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-active {
+  background-color: #e6fcf5;
+  color: #0ca678;
+}
+
+.status-inactive {
+  background-color: #fff5f5;
+  color: #fa5252;
+}
+.admin-management-section {
+  margin-top: 50px;
+  padding: 20px 0;
+}
+
+.quality-title-list {
+  margin-bottom: 25px;
+  text-align: center;
+  font-family: var(--second-family);
+  font-size: 25px;
+}
+
+.admin-form-controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-coffee-lighter); /* */
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.admin-btn {
+  width: 40%;
+  align-self: center;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--second-family); /* */
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.admin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-create {
+  background-color: #27ae60;
+}
+.btn-create:hover {
+  background-color: #219150;
+}
+.btn-update {
+  background-color: #f39c12;
+}
+.btn-update:hover {
+  background-color: #d68910;
+}
+
+.btn-delete {
+  background-color: #c0392b;
+}
+.btn-delete:hover {
+  background-color: #a93226;
+}
+
+@media screen and (max-width: 768px) {
+  .admin-form-controls {
+    flex-direction: column;
+  }
+}

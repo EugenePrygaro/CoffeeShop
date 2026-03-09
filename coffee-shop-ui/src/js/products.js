@@ -127,9 +127,7 @@ const products = [
 ];
 
 export const richProductsWithImg = () => {
-  console.log(products);
   return products.map((product, index) => {
-    // Очищуємо назву від зайвих символів для кращого пошуку в API
     const searchTerm = product.name
       .toLowerCase()
       .replace(/[^a-zа-яєіїґ\s]/gi, '')
