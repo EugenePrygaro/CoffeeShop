@@ -14,8 +14,15 @@ npm run devТовари (Products) — для Каталогу та Адмінк
         {
             id: 1,
             name: 'Ethiopia Sidamo',
+            description: '!!!{на англійській}',
             price: 320,
-            desc: '!!!{на англійській}',
+            stockQuantity,
+            roastLevel,
+            weight,
+            categoryId
+            category
+            orders
+           
         },
 
 2. Користувачі (Users) — для Адмінки

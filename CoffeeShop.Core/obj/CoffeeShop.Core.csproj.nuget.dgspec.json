@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {}
+    "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {
+    "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj",
+        "projectUniqueName": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj",
         "projectName": "CoffeeShop.Core",
-        "projectPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj",
-        "packagesPath": "C:\\Users\\juriy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\obj\\",
+        "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj",
+        "packagesPath": "C:\\Users\\priga\\.nuget\\packages\\",
+        "outputPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\juriy\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\priga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -59,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\juriy\\.dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

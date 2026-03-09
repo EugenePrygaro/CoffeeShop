@@ -1,36 +1,38 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.API\\CoffeeShop.API.csproj": {}
+    "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.API\\CoffeeShop.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.API\\CoffeeShop.API.csproj": {
+    "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.API\\CoffeeShop.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.API\\CoffeeShop.API.csproj",
+        "projectUniqueName": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.API\\CoffeeShop.API.csproj",
         "projectName": "CoffeeShop.API",
-        "projectPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.API\\CoffeeShop.API.csproj",
-        "packagesPath": "C:\\Users\\juriy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.API\\obj\\",
+        "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.API\\CoffeeShop.API.csproj",
+        "packagesPath": "C:\\Users\\priga\\.nuget\\packages\\",
+        "outputPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\juriy\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\priga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.App\\CoffeeShop.App.csproj": {
-                "projectPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.App\\CoffeeShop.App.csproj"
+              "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.App\\CoffeeShop.App.csproj": {
+                "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.App\\CoffeeShop.App.csproj"
               },
-              "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Infrastructure\\CoffeeShop.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Infrastructure\\CoffeeShop.Infrastructure.csproj"
+              "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Infrastructure\\CoffeeShop.Infrastructure.csproj": {
+                "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Infrastructure\\CoffeeShop.Infrastructure.csproj"
               }
             }
           }
@@ -89,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\juriy\\.dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -507,30 +509,32 @@
         }
       }
     },
-    "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.App\\CoffeeShop.App.csproj": {
+    "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.App\\CoffeeShop.App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.App\\CoffeeShop.App.csproj",
+        "projectUniqueName": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.App\\CoffeeShop.App.csproj",
         "projectName": "CoffeeShop.App",
-        "projectPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.App\\CoffeeShop.App.csproj",
-        "packagesPath": "C:\\Users\\juriy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.App\\obj\\",
+        "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.App\\CoffeeShop.App.csproj",
+        "packagesPath": "C:\\Users\\priga\\.nuget\\packages\\",
+        "outputPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.App\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\juriy\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\priga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {
-                "projectPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj"
+              "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {
+                "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj"
               }
             }
           }
@@ -566,7 +570,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\juriy\\.dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -844,22 +848,24 @@
         }
       }
     },
-    "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {
+    "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj",
+        "projectUniqueName": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj",
         "projectName": "CoffeeShop.Core",
-        "projectPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj",
-        "packagesPath": "C:\\Users\\juriy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\obj\\",
+        "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj",
+        "packagesPath": "C:\\Users\\priga\\.nuget\\packages\\",
+        "outputPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\juriy\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\priga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -899,7 +905,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\juriy\\.dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1177,30 +1183,32 @@
         }
       }
     },
-    "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Infrastructure\\CoffeeShop.Infrastructure.csproj": {
+    "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Infrastructure\\CoffeeShop.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Infrastructure\\CoffeeShop.Infrastructure.csproj",
+        "projectUniqueName": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Infrastructure\\CoffeeShop.Infrastructure.csproj",
         "projectName": "CoffeeShop.Infrastructure",
-        "projectPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Infrastructure\\CoffeeShop.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\juriy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Infrastructure\\obj\\",
+        "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Infrastructure\\CoffeeShop.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\priga\\.nuget\\packages\\",
+        "outputPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\juriy\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\priga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {
-                "projectPath": "C:\\Users\\juriy\\Desktop\\CoffeShopGit\\CoffeeShop.Core\\CoffeeShop.Core.csproj"
+              "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj": {
+                "projectPath": "F:\\Lab\\5 курс\\2 семестр\\Доменна інженерія\\CoffeeShop\\CoffeeShop.Core\\CoffeeShop.Core.csproj"
               }
             }
           }
@@ -1246,7 +1254,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\juriy\\.dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

@@ -1,5 +1,6 @@
 // src/pages/Catalog.jsx
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { initMobileMenu } from '../js/mobile-menu';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
@@ -10,13 +11,26 @@ const Catalog = () => {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]); 
   const [isCartOpen, setIsCartOpen] = useState(false);
-  
-  console.log(richProductsWithImg());
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setProducts(richProductsWithImg());
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5254/api/product');
+        
+        const enrichedData = richProductsWithImg(response.data);
+        setProducts(enrichedData);
+      } catch (error) {
+        console.error("Помилка при завантаженні товарів:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-   },[]);
+    fetchProducts();
+  }, []);
+
+  
   useEffect(() => {
     const menu = initMobileMenu();
     return () => menu?.cleanup();
@@ -33,6 +47,37 @@ const Catalog = () => {
     setCartItems(prev => [...prev, product]);
   };
 
+  const handleCheckout = async () => {
+    if (cartItems.length === 0) return;
+
+    const productIds = cartItems.map(item => item.id);
+
+    const orderPayload = {
+      customerId: 1, // Тимчасово 1 ID клієнта (Іван Франко)
+      productIds: productIds
+    };
+
+    try {
+      const response = await axios.post('http://localhost:5254/api/order', orderPayload);
+      
+      alert(`Успіх! ${response.data.message} (Номер: ${response.data.orderId})`);
+      setCartItems([]);
+      setIsCartOpen(false);
+
+      window.location.reload();
+
+    } catch (error) {
+      if (error.response && error.response.data) {
+        alert(`Помилка: ${error.response.data}`);
+      } else {
+        alert("Сталася помилка при оформленні замовлення. Перевірте підключення.");
+      }
+      console.error("Checkout error:", error);
+    }
+  };
+
+  if (loading) return <div className="container">Loading our best coffee...</div>;
+
   return (
     <>
       <Header />
@@ -48,14 +93,44 @@ const Catalog = () => {
             <ul className="catalog-list">
               {products.map(product => (
                 <li key={product.id} className="catalog-item">
-                  <img className="catalog-image" src={product.img} alt={product.name} />
-                  <h3 className="catalog-title-list">{product.name}</h3>
-                  <p className="catalog-list-text">{product.desc}</p>
-                  <div className='catalog-list-button'>
-                    <span className='catalog-list-price'>{product.price} uah</span>
-                    <button className="hero-button" onClick={() => addToCart(product)}>shop</button>
-                  </div>
-                </li>
+                    <div className="catalog-img-wrapper">
+                      {/* Стікер категорії */}
+                      <div className="category-sticker">{product.categoryLabel}</div>
+                      <img className="catalog-image" src={product.img} alt={product.name} />
+                    </div>
+
+                    <div className="catalog-content">
+                      <h3 className="catalog-title-list">{product.name}</h3>
+                      <p className="catalog-list-text">{product.description}</p>
+                      {/* Візуальне обсмаження (тільки для кави) */}
+                      {product.categoryId === 1 && (
+                        <div className="roast-level">
+                          <span>Roast:</span>
+                          {[...Array(5)].map((_, i) => (
+                            <span key={i} className={`bean ${i < product.roastLevel ? 'active' : ''}`}>☕</span>
+                          ))}
+                        </div>
+                      )}
+                      
+                      <div className="catalog-meta">
+                        <span className="stock-info">
+                          {product.stockQuantity > 0 ? `In stock: ${product.stockQuantity}` : 'Out of stock'}
+                        </span>
+                        <span className="weight-info">{product.weight}g</span>
+                      </div>
+
+                      <div className='catalog-list-button'>
+                        <span className='catalog-list-price'>{product.price} uah</span>
+                        <button 
+                          className="hero-button" 
+                          disabled={product.stockQuantity === 0}
+                          onClick={() => addToCart(product)}
+                        >
+                          {product.stockQuantity > 0 ? 'buy now' : 'sold out'}
+                        </button>
+                      </div>
+                    </div>
+                  </li>
               ))}
             </ul>
           </div>
@@ -90,7 +165,7 @@ const Catalog = () => {
                   <span>Total:</span>
                   <span>{cartItems.reduce((acc, curr) => acc + curr.price, 0)} uah</span>
                 </div>
-                <button className="hero-button" style={{ width: '100%' }}>Checkout</button>
+                <button className="hero-button" onClick={handleCheckout}>Checkout</button>
               </div>
             )}
           </div>

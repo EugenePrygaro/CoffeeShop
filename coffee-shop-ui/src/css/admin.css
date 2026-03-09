@@ -31,8 +31,8 @@
 }
 
 .admin-input {
-  flex-grow: 1; /* Рядок пошуку займає весь вільний простір */
   max-width: 500px;
+  min-width: 200px;
 }
 
 /* Стилі для таблиці */
@@ -82,15 +82,6 @@
   text-transform: uppercase;
 }
 
-.status-active {
-  background-color: #e6fcf5;
-  color: #0ca678;
-}
-
-.status-inactive {
-  background-color: #fff5f5;
-  color: #fa5252;
-}
 .admin-management-section {
   margin-top: 50px;
   padding: 20px 0;
@@ -115,6 +106,11 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
+}
+.admin-form-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .admin-btn {
