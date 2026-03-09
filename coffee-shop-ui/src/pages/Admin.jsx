@@ -78,13 +78,10 @@ const Admin = () => {
       payload.price = parseFloat(payload.price || 0);
       payload.durationInDays = parseInt(payload.durationInDays || 30);
     }
-    else if (entityType === 'order') {
-      if (payload.status) payload.status = parseInt(payload.status);
 
-      try {
+    try {
       
-        if (operation === 'create') {
-          if (entityType === 'order') return alert('Створення замовлень наразі не підтримується.');
+      if (operation === 'create') {
           if (entityType === 'category') return alert('Поки не підтримує створення категорій');
           await axios.post(targetUrl, payload);
           alert(`${entityType} успішно створено!`);
@@ -102,7 +99,7 @@ const Admin = () => {
 
       setFormData({});
       fetchData(); 
-
+      if (entityType === 'category') fetchCategoriesForSelect();
       const idSelect = document.querySelector('select[onChange*="setFormData"]');
       if(idSelect) idSelect.value = "";
 
@@ -112,7 +109,9 @@ const Admin = () => {
     }
   };
 
-  
+  useEffect(() => {
+    fetchCategoriesForSelect();
+  }, []);
 
  const renderTableHeaders = () => {
     if (entityType === 'product') {
@@ -135,7 +134,12 @@ const Admin = () => {
           <th>Sub ID</th>
         </tr>
       );
-    } else {
+    } else if (entityType === 'order') {
+      return <tr><th>ID</th><th>Customer ID</th><th>Amount</th><th>Status</th><th>Date</th></tr>;
+    } else if (entityType === 'category') {
+      return <tr><th>ID</th><th>Name</th><th>Description</th><th>Products inside</th></tr>;
+    }
+    else {
       return (
         <tr>
           <th>ID</th>
@@ -170,14 +174,35 @@ const Admin = () => {
         </>
       )}
 
-      {entityType === 'user' && (
+      {entityType === 'customer' && (
         <>
-            <td>{item.firstName}</td>
-            <td><strong>{item.lastName}</strong></td>
-            <td>{item.email}</td>
-            <td>{item.subscriptionId || '-'}</td>
+          <td>{item.firstName || item.FirstName}</td>
+          <td><strong>{item.lastName || item.LastName}</strong></td>
+          <td>{item.email || item.Email}</td>
+          <td>{item.subscriptionId || item.SubscriptionId || '-'}</td>
         </>
       )}
+
+      {entityType === 'order' && (
+          <>
+            <td>Customer #{item.customerId}</td>
+            <td>{item.totalAmount} uah</td>
+            <td>
+              <span className={`status-badge status-${item.status === 0 ? 'new' : item.status === 1 ? 'paid' : 'delivered'}`}>
+                {item.status === 0 ? 'New' : item.status === 1 ? 'Paid' : 'Delivered'}
+              </span>
+            </td>
+            <td>{new Date(item.orderDate).toLocaleDateString()}</td>
+          </>
+        )}
+
+        {entityType === 'category' && (
+          <>
+            <td><strong>{item.name}</strong></td>
+            <td>{item.description}</td>
+            <td style={{ fontSize: '13px', color: '#666' }}>{item.productsSummary || 'Empty'}</td>
+          </>
+        )}
 
       {entityType === 'subscription' && (
         <>
@@ -198,7 +223,6 @@ const Admin = () => {
     if (operation === 'delete') {
       return <p>Are you sure you want to delete this entry?</p>;
     }
-
     return (
       <div className="admin-form-inputs">
         {entityType === 'product' && (
@@ -209,9 +233,25 @@ const Admin = () => {
             <input name="stockQuantity" type="number" placeholder="Stock quantity" onChange={handleInputChange} className="admin-input" value={formData.stockQuantity || ''} />
             <input name="roastLevel" type="number" min="1" max="5" placeholder="Roast level (1-5)" onChange={handleInputChange} className="admin-input" value={formData.roastLevel || ''} />
             <input name="weight" type="number" step="0.1" placeholder="Weight (g)" onChange={handleInputChange} className="admin-input" value={formData.weight || ''} />
-            {operation === 'create' && <input name="categoryId" type="number" placeholder="Category ID" onChange={handleInputChange} className="admin-input" value={formData.categoryId || ''} />}
+            
+            <select name="categoryId" onChange={handleInputChange} className="admin-select" value={formData.categoryId || ''}>
+              <option value="">Select Category</option>
+              {categoriesList.map(category => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
           </>
         )}
+        
+        {entityType === 'category' && (
+          <>
+            <input name="name" placeholder="Category Name" onChange={handleInputChange} className="admin-input" value={formData.name || ''} />
+            <input name="description" placeholder="Description" onChange={handleInputChange} className="admin-input" value={formData.description || ''} />
+          </>
+        )}
+
         {entityType === 'customer' && (
           <>
             <input name="firstName" placeholder="First name" onChange={handleInputChange} className="admin-input" value={formData.firstName || ''} />
@@ -248,6 +288,7 @@ const Admin = () => {
               <option value="product">Products</option>
               <option value="customer">Customers</option>
               <option value="subscription">Subscriptions</option>
+              <option value="category">Category</option>
             </select>
 
             <input type="text" className="admin-input" placeholder={`Search by name...`} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
@@ -260,11 +301,11 @@ const Admin = () => {
             </table>
           </div>
 
-          <section className="admin-management-section">
+          {entityType != 'category'&& entityType != 'subscription' && <section className="admin-management-section">
             <h2 className="quality-title-list">Manage data</h2>
             <div className="admin-form-controls">
               <select className="admin-select" value={operation} onChange={(e) => { setOperation(e.target.value); setFormData({}); }}>
-                <option value="create">Create</option>
+                {entityType !== 'order' && <option value="create">Create</option>}
                 <option value="update">Update</option>
                 <option value="delete">Delete</option>
               </select>
@@ -272,18 +313,24 @@ const Admin = () => {
               {(operation === 'update' || operation === 'delete') && (
                 <select className="admin-select" onChange={(e) => setFormData({id: e.target.value})}>
                   <option value="">Select ID to {operation}</option>
-                  {data.map(item => <option key={item.id} value={item.id}>{item.name || item.lastName || `Tariff ${item.type}`} (ID: {item.id})</option>)}
+                  {data.map(item => (
+                    <option key={item.id} value={item.id}>
+                      {entityType === 'order' 
+                        ? `Order #${item.id} (Customer: ${item.customerId})` 
+                        : `${item.name || item.lastName || `Tariff ${item.type}`} (ID: ${item.id})`}
+                    </option>
+                  ))}
                 </select>
               )}
             </div>
 
             <form onSubmit={handleFormSubmit}>
               {renderFormFields()}
-              <button type="submit" className={`admin-btn btn-${operation}`} style={{ marginTop: '20px' }}>
+              <button type="submit" className={`admin-btn btn-${operation}`} style={{ marginTop: '20px' }} disabled={entityType === 'order' && operation === 'create'}>
                 {operation.toUpperCase()}
               </button>
             </form>
-          </section>
+          </section>}
         </div>
       </main>
 

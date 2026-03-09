@@ -1,6 +1,7 @@
 using dotenv.net;
 using Microsoft.EntityFrameworkCore;
 using CoffeeShop.Infrastructure;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,10 @@ builder.Services.AddCors(options =>
         });
 });
 
-
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 // --- ЗАВАНТАЖЕННЯ НАЛАШТУВАНЬ ---
 DotEnv.Load();
 var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
@@ -27,7 +31,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         ServerVersion.AutoDetect(connectionString)
     ));
 
-builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
