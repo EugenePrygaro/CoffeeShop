@@ -1,6 +1,7 @@
 using dotenv.net;                    
 using Microsoft.EntityFrameworkCore; 
 using CoffeeShop.Infrastructure;    
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 var app = builder.Build();
 
@@ -48,9 +53,9 @@ using (var scope = app.Services.CreateScope())
         
         Console.WriteLine("Підключення до бази даних успішно встановлено.");
         
-        // Викликаємо метод очищення та наповнення тільки якщо підключення є
-        DbInitializer.Initialize(context);
-        Console.WriteLine("Базу даних успішно ініціалізовано тестовими даними.");
+        // // Викликаємо метод очищення та наповнення тільки якщо підключення є
+        // DbInitializer.Initialize(context);
+        // Console.WriteLine("Базу даних успішно ініціалізовано тестовими даними.");
     }
     catch (Exception ex)
     {
