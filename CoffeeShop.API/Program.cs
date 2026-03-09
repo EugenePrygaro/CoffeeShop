@@ -1,41 +1,63 @@
+using dotenv.net;                    
+using Microsoft.EntityFrameworkCore; 
+using CoffeeShop.Infrastructure;    
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// --- ЗАВАНТАЖЕННЯ НАЛАШТУВАНЬ ---
+DotEnv.Load();
+var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
+
+// --- РЕЄСТРАЦІЯ СЕРВІСІВ (Dependency Injection) ---
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(
+        connectionString, 
+        ServerVersion.AutoDetect(connectionString)
+    ));
+
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// --- НАЛАШТУВАННЯ HTTP-КОНВЕЄРА (Middleware) ---
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
 
-var summaries = new[]
+// --- ПЕРЕВІРКА ПІДКЛЮЧЕННЯ ТА ІНІЦІАЛІЗАЦІЯ БАЗИ ---
+using (var scope = app.Services.CreateScope())
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    var services = scope.ServiceProvider;
+    
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        Console.WriteLine("Спроба підключення до бази даних MySQL...");
+        
+        if (!context.Database.CanConnect())
+        {
+            Console.WriteLine("КРИТИЧНА ПОМИЛКА: Неможливо підключитися до бази даних.");
+            Console.WriteLine("Переконайтеся, що сервер MySQL запущений, а рядок підключення у файлі .env вказано правильно.");
+            Environment.Exit(1);
+        }
+        
+        Console.WriteLine("Підключення до бази даних успішно встановлено.");
+        
+        // Викликаємо метод очищення та наповнення тільки якщо підключення є
+        DbInitializer.Initialize(context);
+        Console.WriteLine("Базу даних успішно ініціалізовано тестовими даними.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("КРИТИЧНА ПОМИЛКА: Виникла проблема під час конфігурації підключення.");
+        Console.WriteLine($"Деталі помилки: {ex.Message}");
+        Environment.Exit(1);
+    }
+}
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
