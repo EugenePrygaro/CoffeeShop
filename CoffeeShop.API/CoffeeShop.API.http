@@ -76,3 +76,37 @@ Content-Type: {{ContentType}}
   "customerId": 2,
   "subscriptionId": 0
 }
+
+---
+
+### --- 5. КЛІЄНТИ (CustomerController) ---
+
+### Отримати список усіх клієнтів (разом із їхніми підписками)
+GET {{HostAddress}}/api/customer
+
+### Отримати детальну інформацію про конкретного клієнта
+GET {{HostAddress}}/api/customer/1
+
+### Додати нового клієнта в базу
+POST {{HostAddress}}/api/customer
+Content-Type: {{ContentType}}
+
+{
+  "firstName": "Григорій",
+  "lastName": "Сковорода",
+  "email": "hryhorii@example.com",
+  "subscriptionId": null
+}
+
+### Оновити дані існуючого клієнта (відповідно до CustomerUpdateDto)
+PUT {{HostAddress}}/api/customer/3
+Content-Type: {{ContentType}}
+
+{
+  "firstName": "Леся",
+  "lastName": "Косач-Квітка",
+  "email": "lesya.new@example.com"
+}
+
+### Видалити клієнта з бази даних
+DELETE {{HostAddress}}/api/customer/3

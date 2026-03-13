@@ -18,12 +18,14 @@ public static class DbInitializer
         context.Database.ExecuteSqlRaw("DELETE FROM Subscriptions;");
         context.Database.ExecuteSqlRaw("DELETE FROM Products;");
         context.Database.ExecuteSqlRaw("DELETE FROM Categories;");
+        context.Database.ExecuteSqlRaw("DELETE FROM PromoActions;"); // Додано очищення таблиці промоакцій
         
         context.Database.ExecuteSqlRaw("ALTER TABLE Orders AUTO_INCREMENT = 1;");
         context.Database.ExecuteSqlRaw("ALTER TABLE Customers AUTO_INCREMENT = 1;");
         context.Database.ExecuteSqlRaw("ALTER TABLE Subscriptions AUTO_INCREMENT = 1;");
         context.Database.ExecuteSqlRaw("ALTER TABLE Products AUTO_INCREMENT = 1;");
         context.Database.ExecuteSqlRaw("ALTER TABLE Categories AUTO_INCREMENT = 1;");
+        context.Database.ExecuteSqlRaw("ALTER TABLE PromoActions AUTO_INCREMENT = 1;"); // Скидання лічильника для промоакцій
         
         context.Database.ExecuteSqlRaw("SET FOREIGN_KEY_CHECKS = 1;");
 
@@ -40,7 +42,31 @@ public static class DbInitializer
         context.Categories.AddRange(catCoffee, catTea, catAcc);
         context.SaveChanges();
 
-        // 3. ПРОДУКТИ (20 позицій з фронтенду)
+        // 3. ПРОМОАКЦІЇ
+        // Часова акція: знижка 15% на все замовлення, діє 7 днів від поточного моменту
+        var timePromo = new PromoAction 
+        { 
+            PromoCode = "BLACKFRIDAY", 
+            Type = PromoType.TimeBased, 
+            DiscountPercentage = 15.0m, 
+            ExpiryDate = DateTime.Now.AddDays(7), 
+            IsActive = true 
+        };
+        
+        // Категорійна акція: знижка 20% тільки на товари з категорії "Tea"
+        var categoryPromo = new PromoAction 
+        { 
+            PromoCode = "TEALOVER", 
+            Type = PromoType.CategoryBased, 
+            DiscountPercentage = 20.0m, 
+            TargetCategoryId = catTea.Id, 
+            IsActive = true 
+        };
+        
+        context.PromoActions.AddRange(timePromo, categoryPromo);
+        context.SaveChanges();
+
+        // 4. ПРОДУКТИ (20 позицій з фронтенду)
         var products = new List<Product>
         {
             new Product { Name = "Ethiopia Sidamo", Price = 320m, Description = "яскраві нотки бергамоту та чорного чаю.", CategoryId = catCoffee.Id, StockQuantity = 50, RoastLevel = 3, Weight = 250 },
@@ -67,14 +93,14 @@ public static class DbInitializer
         context.Products.AddRange(products);
         context.SaveChanges();
 
-        // 4. КЛІЄНТИ
+        // 5. КЛІЄНТИ
         var cust1 = new Customer { FirstName = "Ivan", LastName = "Franko", Email = "ivan@example.com", SubscriptionId = premiumSub.Id };
         var cust2 = new Customer { FirstName = "Taras", LastName = "Shevchenko", Email = "taras@example.com", SubscriptionId = basicSub.Id };
         var cust3 = new Customer { FirstName = "Lesya", LastName = "Ukrainka", Email = "lesya@example.com" };
         context.Customers.AddRange(cust1, cust2, cust3);
         context.SaveChanges();
 
-        // 5. ТЕСТОВЕ ЗАМОВЛЕННЯ
+        // 6. ТЕСТОВЕ ЗАМОВЛЕННЯ
         var order = new Order 
         { 
             OrderDate = DateTime.Now, 

@@ -16,6 +16,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         ServerVersion.AutoDetect(connectionString)
     ));
 
+// --- ПІДКЛЮЧЕННЯ СВАГГЕРУ ДЛЯ ДЕМОНСТРАЦІЇ ЗАПИТІВ HTTP ---
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(); // Цей рядок активує генератор Swagger
+
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -29,6 +33,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    
+    app.UseSwagger();   // Генерує сам файл документації (JSON)
+    app.UseSwaggerUI(); // Створює візуальний інтерфейс за адресою /swagger
 }
 
 app.UseHttpsRedirection();
@@ -53,9 +60,9 @@ using (var scope = app.Services.CreateScope())
         
         Console.WriteLine("Підключення до бази даних успішно встановлено.");
         
-        // // Викликаємо метод очищення та наповнення тільки якщо підключення є
-        // DbInitializer.Initialize(context);
-        // Console.WriteLine("Базу даних успішно ініціалізовано тестовими даними.");
+        // Викликаємо метод очищення та наповнення тільки якщо підключення є
+        DbInitializer.Initialize(context);
+        Console.WriteLine("Базу даних успішно ініціалізовано тестовими даними.");
     }
     catch (Exception ex)
     {
