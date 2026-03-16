@@ -12,4 +12,6 @@ public class AppDbContext : DbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Subscription> Subscriptions { get; set; }
+    
+    public DbSet<PromoAction> PromoActions { get; set; }
 }

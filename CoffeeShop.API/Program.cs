@@ -5,21 +5,6 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowReactApp",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:5173") // Порт фронтенду
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
-});
-
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-});
 // --- ЗАВАНТАЖЕННЯ НАЛАШТУВАНЬ ---
 DotEnv.Load();
 var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
@@ -31,16 +16,43 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         ServerVersion.AutoDetect(connectionString)
     ));
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173") // фронтенд
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+// --- РЕЄСТРАЦІЯ СЕРВІСУ (OrderService) ---
+builder.Services.AddScoped<OrderService>();
+
+
+// --- ПІДКЛЮЧЕННЯ СВАГГЕРУ ДЛЯ ДЕМОНСТРАЦІЇ ЗАПИТІВ HTTP ---
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(); // Цей рядок активує генератор Swagger
+
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 var app = builder.Build();
-
+app.UseCors("AllowFrontend");
 // --- НАЛАШТУВАННЯ HTTP-КОНВЕЄРА (Middleware) ---
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+    app.UseSwagger();   // Генерує сам файл документації (JSON)
+    app.UseSwaggerUI(); // Створює візуальний інтерфейс за адресою /swagger
 }
-app.UseCors("AllowReactApp");
+
 app.UseHttpsRedirection();
 app.MapControllers();
 
@@ -62,7 +74,7 @@ using (var scope = app.Services.CreateScope())
         }
 
         Console.WriteLine("Підключення до бази даних успішно встановлено.");
-        context.Database.EnsureCreated();
+
         // Викликаємо метод очищення та наповнення тільки якщо підключення є
         DbInitializer.Initialize(context);
         Console.WriteLine("Базу даних успішно ініціалізовано тестовими даними.");

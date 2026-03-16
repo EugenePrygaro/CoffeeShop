@@ -1,3 +1,14 @@
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\bin\Debug\net10.0\CoffeeShop.Core.deps.json
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\bin\Debug\net10.0\CoffeeShop.Core.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\bin\Debug\net10.0\CoffeeShop.Core.pdb
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\obj\Debug\net10.0\CoffeeShop.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\obj\Debug\net10.0\CoffeeShop.Core.AssemblyInfoInputs.cache
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\obj\Debug\net10.0\CoffeeShop.Core.AssemblyInfo.cs
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\obj\Debug\net10.0\CoffeeShop.Core.csproj.CoreCompileInputs.cache
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\obj\Debug\net10.0\CoffeeShop.Core.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\obj\Debug\net10.0\refint\CoffeeShop.Core.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\obj\Debug\net10.0\CoffeeShop.Core.pdb
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Core\obj\Debug\net10.0\ref\CoffeeShop.Core.dll
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.Core\bin\Debug\net10.0\CoffeeShop.Core.deps.json
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.Core\bin\Debug\net10.0\CoffeeShop.Core.dll
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.Core\bin\Debug\net10.0\CoffeeShop.Core.pdb

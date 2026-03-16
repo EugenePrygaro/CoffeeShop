@@ -13,6 +13,7 @@ public class Subscription
     public SubscriptionType Type { get; set; }
     public decimal Price { get; set; }
     public int DurationInDays { get; set; }
-    
+    public decimal DiscountPercentage { get; set; }
+
     public List<Customer> Customers { get; set; } = new();
 }

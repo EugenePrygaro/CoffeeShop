@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "CoffeeShop.API\\CoffeeShop.API.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

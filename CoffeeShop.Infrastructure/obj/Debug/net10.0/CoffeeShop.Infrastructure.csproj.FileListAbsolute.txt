@@ -1,3 +1,18 @@
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Infrastructure.deps.json
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Infrastructure.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Infrastructure.pdb
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Core.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Core.pdb
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.AssemblyInfo.cs
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeSh.2416EAEA.Up2Date
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\obj\Debug\net10.0\refint\CoffeeShop.Infrastructure.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.pdb
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.Infrastructure\obj\Debug\net10.0\ref\CoffeeShop.Infrastructure.dll
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Infrastructure.deps.json
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Infrastructure.dll
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Infrastructure.pdb

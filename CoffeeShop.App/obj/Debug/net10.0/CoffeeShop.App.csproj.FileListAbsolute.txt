@@ -1,8 +1,27 @@
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.App.deps.json
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.App.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.App.pdb
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.Core.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.Infrastructure.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.Core.pdb
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.Infrastructure.pdb
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\obj\Debug\net10.0\CoffeeShop.App.csproj.AssemblyReference.cache
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\obj\Debug\net10.0\CoffeeShop.App.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\obj\Debug\net10.0\CoffeeShop.App.AssemblyInfoInputs.cache
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\obj\Debug\net10.0\CoffeeShop.App.AssemblyInfo.cs
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\obj\Debug\net10.0\CoffeeShop.App.csproj.CoreCompileInputs.cache
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\obj\Debug\net10.0\CoffeeSh.D2E1CE33.Up2Date
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\obj\Debug\net10.0\CoffeeShop.App.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\obj\Debug\net10.0\refint\CoffeeShop.App.dll
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\obj\Debug\net10.0\CoffeeShop.App.pdb
+C:\Users\Sasha\Downloads\CoffeeShop-feature-promo-and-status\CoffeeShop.App\obj\Debug\net10.0\ref\CoffeeShop.App.dll
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.App.deps.json
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.App.dll
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.App.pdb
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.Core.dll
+F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.Infrastructure.dll
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.Core.pdb
+F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.App\bin\Debug\net10.0\CoffeeShop.Infrastructure.pdb
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.App\obj\Debug\net10.0\CoffeeShop.App.csproj.AssemblyReference.cache
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.App\obj\Debug\net10.0\CoffeeShop.App.GeneratedMSBuildEditorConfig.editorconfig
 F:\Lab\5 курс\2 семестр\Доменна інженерія\CoffeeShop\CoffeeShop.App\obj\Debug\net10.0\CoffeeShop.App.AssemblyInfoInputs.cache

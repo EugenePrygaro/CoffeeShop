@@ -17,4 +17,25 @@ public class Order
     
     // Масив продуктів, які належать до цього замовлення
     public List<Product> Products { get; set; } = new();
+
+    // Метод для безпечної зміни статусу із зашитими правилами бізнес-логіки
+    public void ChangeStatus(OrderStatus newStatus)
+    {
+        if (Status == OrderStatus.Delivered)
+        {
+            throw new InvalidOperationException("Неможливо змінити статус: замовлення вже доставлено.");
+        }
+
+        if (Status == OrderStatus.New && newStatus == OrderStatus.Delivered)
+        {
+            throw new InvalidOperationException("Порушення бізнес-логіки: замовлення має бути оплачено (Paid) перед доставкою.");
+        }
+
+        if (Status == OrderStatus.Paid && newStatus == OrderStatus.New)
+        {
+            throw new InvalidOperationException("Оплачене замовлення не може знову стати новим.");
+        }
+
+        Status = newStatus;
+    }
 }

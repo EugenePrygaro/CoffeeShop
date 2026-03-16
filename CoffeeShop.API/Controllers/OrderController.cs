@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using CoffeeShop.Infrastructure;
 using CoffeeShop.Core.Entities;
 
@@ -9,32 +10,30 @@ namespace CoffeeShop.API.Controllers;
 public class OrderController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly OrderService _orderService;
 
-    public OrderController(AppDbContext context)
+    public OrderController(AppDbContext context, OrderService orderService)
     {
         _context = context;
+        _orderService = orderService;
     }
 
     // POST: api/order
-    // Метод приймає ID клієнта та масив вибраних продуктів з кошика
     [HttpPost]
-    public IActionResult CreateOrder([FromBody] CreateOrderRequest request)
+    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
     {
-        // 1. Шукаємо продукти, які вибрав користувач
-        var products = _context.Products
+        // 1. Шукаємо продукти, які вибрав користувач (асинхронно)
+        var products = await _context.Products
             .Where(p => request.ProductIds.Contains(p.Id))
-            .ToList();
+            .ToListAsync();
 
-        // Перевірка: чи всі ID, що прийшли з фронту, існують у базі
         if (products.Count != request.ProductIds.Distinct().Count())
         {
             return BadRequest("Деякі товари не знайдені в каталозі.");
         }
 
         // 2. ПЕРЕВІРКА НА СКЛАДІ
-        // Шукаємо товари, кількість яких дорівнює 0
         var outOfStockProducts = products.Where(p => p.StockQuantity <= 0).ToList();
-
         if (outOfStockProducts.Any())
         {
             var names = string.Join(", ", outOfStockProducts.Select(p => p.Name));
@@ -42,57 +41,121 @@ public class OrderController : ControllerBase
         }
 
         // 3. ЗМЕНШЕННЯ КІЛЬКОСТІ НА СКЛАДІ
-        // Проходимо по кожному товару в замовленні та віднімаємо одиницю
         foreach (var product in products)
         {
             product.StockQuantity -= 1;
         }
 
-        // 4. Формуємо замовлення
+        // 4. ПЕРЕВІРКА ПРОМОКОДУ
+        PromoAction? activePromo = null;
+        if (!string.IsNullOrWhiteSpace(request.PromoCode))
+        {
+            activePromo = await _context.PromoActions
+                .FirstOrDefaultAsync(p => p.PromoCode == request.PromoCode.ToUpper() && p.IsActive);
+                
+            if (activePromo == null)
+            {
+                return BadRequest("Недійсний або неактивний промокод.");
+            }
+        }
+
+        // 5. ПІДРАХУНОК ФІНАЛЬНОЇ ВАРТОСТІ (через ізольований метод)
+        decimal totalAmount = CalculateDiscountedTotal(products, activePromo);
+
+        totalAmount = _orderService.CalculateTotal(request.CustomerId, products, totalAmount);
+
+        // 6. Формуємо замовлення
         var newOrder = new Order
         {
             CustomerId = request.CustomerId,
             OrderDate = DateTime.Now,
             Status = OrderStatus.New,
-            TotalAmount = products.Sum(p => p.Price),
+            TotalAmount = totalAmount,
             Products = products
         };
 
-        // 5. Зберігаємо зміни
-        // Entity Framework оновить і таблицю Orders, і поле StockQuantity у таблиці Products в одній транзакції
+        // 7. Зберігаємо зміни (асинхронно)
         _context.Orders.Add(newOrder);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
-        return Ok(new { orderId = newOrder.Id, message = "Замовлення успішно створено, склад оновлено." });
+        return Ok(new { orderId = newOrder.Id, total = totalAmount, message = "Замовлення успішно створено, склад оновлено." });
     }
 
     // GET: api/order/{id}
-    // Метод повертає виключно статус конкретного замовлення
     [HttpGet("{id}")]
-    public IActionResult GetOrderStatus(int id)
+    public async Task<IActionResult> GetOrderStatus(int id)
     {
-        // Використовуємо .Select(), щоб сформувати точковий запит.
-        // Завдяки цьому MySQL навіть не буде читати колонки TotalAmount чи OrderDate,
-        // і тим більше не буде підтягувати пов'язані продукти. Ми беремо тільки Status.
-        var orderStatus = _context.Orders
+        var orderStatus = await _context.Orders
             .Where(o => o.Id == id)
-            .Select(o => new { status = o.Status.ToString() }) // Перетворюємо Enum (0, 1, 2) на текст ("New", "Paid")
-            .FirstOrDefault();
+            .Select(o => new { status = o.Status.ToString() }) 
+            .FirstOrDefaultAsync();
 
         if (orderStatus == null)
         {
             return NotFound("Замовлення не знайдено.");
         }
 
-        // Віддаємо на фронт акуратний JSON: { "status": "New" }
         return Ok(orderStatus);
+    }
+    
+    // PUT: api/order/{id}/status
+    [HttpPut("{id}/status")]
+    public async Task<IActionResult> UpdateOrderStatus(int id, [FromBody] OrderStatus newStatus)
+    {
+        var order = await _context.Orders.FindAsync(id);
+        if (order == null) return NotFound("Замовлення не знайдено.");
+
+        try
+        {
+            order.ChangeStatus(newStatus);
+            await _context.SaveChangesAsync();
+            return Ok(new { message = $"Статус замовлення успішно оновлено на {newStatus}" });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+    }
+
+    // --- ДОПОМІЖНІ МЕТОДИ ТА КЛАСИ ---
+
+    private decimal CalculateDiscountedTotal(List<Product> products, PromoAction? promo)
+    {
+        decimal total = 0;
+
+        foreach (var product in products)
+        {
+            decimal itemPrice = product.Price;
+
+            // Категорійна знижка (на конкретні товари)
+            if (promo != null && promo.Type == PromoType.CategoryBased && product.CategoryId == promo.TargetCategoryId)
+            {
+                itemPrice -= itemPrice * (promo.DiscountPercentage / 100m);
+            }
+
+            total += itemPrice;
+        }
+
+        // Часова знижка (на весь чек)
+        if (promo != null && promo.Type == PromoType.TimeBased)
+        {
+            if (promo.ExpiryDate.HasValue && promo.ExpiryDate.Value >= DateTime.Now)
+            {
+                total -= total * (promo.DiscountPercentage / 100m);
+            }
+            else
+            {
+                throw new InvalidOperationException("Термін дії цього промокоду вже минув.");
+            }
+        }
+
+        return total;
     }
 }
 
-// Допоміжний клас (DTO) для прийому даних від фронтенду.
-// Розміщений тут же для зручності.
 public class CreateOrderRequest
 {
     public int CustomerId { get; set; }
     public List<int> ProductIds { get; set; } = new();
+    public string? PromoCode { get; set; } // Додано поле для промокоду
 }

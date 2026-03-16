@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoffeeShop.Core\CoffeeShop.Core.csproj" />
+    <ProjectReference Include="..\CoffeeShop.Infrastructure\CoffeeShop.Infrastructure.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
