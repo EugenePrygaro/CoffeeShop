@@ -4,9 +4,15 @@ using CoffeeShop.Core.Entities;
 
 namespace CoffeeShop.API.Controllers;
 
+public interface ISubscriptionController
+{
+    IActionResult GetAllSubscriptions();
+    IActionResult AssignSubscription([FromBody] AssignSubscriptionRequest request);
+}
+
 [ApiController]
 [Route("api/[controller]")]
-public class SubscriptionController : ControllerBase
+public class SubscriptionController : ControllerBase, ISubscriptionController
 {
     private readonly AppDbContext _context;
 

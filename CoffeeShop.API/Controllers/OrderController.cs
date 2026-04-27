@@ -16,11 +16,9 @@ public class OrderController : ControllerBase
         _context = context;
     }
 
-    // POST: api/order
     [HttpPost]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
     {
-        // 1. Шукаємо продукти, які вибрав користувач (асинхронно)
         var products = await _context.Products
             .Where(p => request.ProductIds.Contains(p.Id))
             .ToListAsync();
@@ -30,7 +28,6 @@ public class OrderController : ControllerBase
             return BadRequest("Деякі товари не знайдені в каталозі.");
         }
 
-        // 2. ПЕРЕВІРКА НА СКЛАДІ
         var outOfStockProducts = products.Where(p => p.StockQuantity <= 0).ToList();
         if (outOfStockProducts.Any())
         {
@@ -38,13 +35,11 @@ public class OrderController : ControllerBase
             return BadRequest($"На жаль, наступні товари закінчилися: {names}");
         }
 
-        // 3. ЗМЕНШЕННЯ КІЛЬКОСТІ НА СКЛАДІ
         foreach (var product in products)
         {
             product.StockQuantity -= 1;
         }
 
-        // 4. ПЕРЕВІРКА ПРОМОКОДУ
         PromoAction? activePromo = null;
         if (!string.IsNullOrWhiteSpace(request.PromoCode))
         {
@@ -56,11 +51,15 @@ public class OrderController : ControllerBase
                 return BadRequest("Недійсний або неактивний промокод.");
             }
         }
-
-        // 5. ПІДРАХУНОК ФІНАЛЬНОЇ ВАРТОСТІ (через ізольований метод)
+            
         decimal totalAmount = CalculateDiscountedTotal(products, activePromo);
+        
+        decimal subDiscountPercent = await GetSubscriptionDiscountPercentageAsync(request.CustomerId);
+        totalAmount -= totalAmount * (subDiscountPercent / 100m);
 
-        // 6. Формуємо замовлення
+        decimal bulkDiscountPercent = GetBulkDiscountPercentage(products.Count, totalAmount);
+        totalAmount -= totalAmount * (bulkDiscountPercent / 100m);
+
         var newOrder = new Order
         {
             CustomerId = request.CustomerId,
@@ -70,14 +69,12 @@ public class OrderController : ControllerBase
             Products = products
         };
 
-        // 7. Зберігаємо зміни (асинхронно)
         _context.Orders.Add(newOrder);
         await _context.SaveChangesAsync();
 
-        return Ok(new { orderId = newOrder.Id, total = totalAmount, message = "Замовлення успішно створено, склад оновлено." });
+        return Ok(new { orderId = newOrder.Id, total = Math.Round(totalAmount, 2), message = "Замовлення успішно створено, склад оновлено." });
     }
 
-    // GET: api/order/{id}
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOrderStatus(int id)
     {
@@ -94,7 +91,6 @@ public class OrderController : ControllerBase
         return Ok(orderStatus);
     }
     
-    // PUT: api/order/{id}/status
     [HttpPut("{id}/status")]
     public async Task<IActionResult> UpdateOrderStatus(int id, [FromBody] OrderStatus newStatus)
     {
@@ -113,8 +109,6 @@ public class OrderController : ControllerBase
         }
     }
 
-    // --- ДОПОМІЖНІ МЕТОДИ ТА КЛАСИ ---
-
     private decimal CalculateDiscountedTotal(List<Product> products, PromoAction? promo)
     {
         decimal total = 0;
@@ -123,7 +117,6 @@ public class OrderController : ControllerBase
         {
             decimal itemPrice = product.Price;
 
-            // Категорійна знижка (на конкретні товари)
             if (promo != null && promo.Type == PromoType.CategoryBased && product.CategoryId == promo.TargetCategoryId)
             {
                 itemPrice -= itemPrice * (promo.DiscountPercentage / 100m);
@@ -132,7 +125,6 @@ public class OrderController : ControllerBase
             total += itemPrice;
         }
 
-        // Часова знижка (на весь чек)
         if (promo != null && promo.Type == PromoType.TimeBased)
         {
             if (promo.ExpiryDate.HasValue && promo.ExpiryDate.Value >= DateTime.Now)
@@ -147,11 +139,43 @@ public class OrderController : ControllerBase
 
         return total;
     }
+
+    private async Task<decimal> GetSubscriptionDiscountPercentageAsync(int customerId)
+    {
+        var customer = await _context.Customers
+            .Include(c => c.Subscription) 
+            .FirstOrDefaultAsync(c => c.Id == customerId);
+
+        if (customer?.Subscription == null)
+            return 0m;
+
+        if (customer.Subscription.Type == SubscriptionType.BasicCoffeePass)
+            return 10m;
+            
+        if (customer.Subscription.Type == SubscriptionType.PremiumRoasterClub)
+            return 15m;
+
+        return 0m;
+    }
+
+    private decimal GetBulkDiscountPercentage(int itemsCount, decimal currentTotal)
+    {
+        if (itemsCount >= 5)
+            return 10m; 
+
+        if (currentTotal >= 1000)
+            return 7m; 
+
+        if (itemsCount >= 3)
+            return 5m; 
+
+        return 0m;
+    }
 }
 
 public class CreateOrderRequest
 {
     public int CustomerId { get; set; }
     public List<int> ProductIds { get; set; } = new();
-    public string? PromoCode { get; set; } // Додано поле для промокоду
+    public string? PromoCode { get; set; } 
 }

@@ -72,6 +72,39 @@ public class CustomerController : ControllerBase
 
         return Ok(new { message = "Клієнта видалено з бази даних." });
     }
+
+    [HttpGet("{id}/loyalty")]
+    public async Task<IActionResult> GetLoyaltyStatus(int id)
+    {
+        var customer = await _context.Customers
+            .Include(c => c.Subscription)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (customer == null) return NotFound("Клієнта не знайдено.");
+
+        if (customer.Subscription != null)
+        {
+            return Ok(new 
+            { 
+                hasLoyalty = true, 
+                subscriptionType = customer.Subscription.Type.ToString(),
+            });
+        }
+
+        return Ok(new { hasLoyalty = false });
+    }
+
+    [HttpPut("{id}/loyalty")]
+    public async Task<IActionResult> UpdateLoyaltyStatus(int id, [FromBody] int? subscriptionId)
+    {
+        var customer = await _context.Customers.FindAsync(id);
+        if (customer == null) return NotFound("Клієнта не знайдено.");
+
+        customer.SubscriptionId = subscriptionId;
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "Статус лояльності клієнта успішно оновлено." });
+    }
 }
 
 public class CustomerUpdateDto

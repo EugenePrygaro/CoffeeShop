@@ -1,0 +1,16 @@
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Infrastructure.deps.json
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Infrastructure.dll
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Infrastructure.pdb
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Core.dll
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\bin\Debug\net10.0\CoffeeShop.Core.pdb
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.AssemblyInfo.cs
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.sourcelink.json
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeSh.2416EAEA.Up2Date
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.dll
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\refint\CoffeeShop.Infrastructure.dll
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\CoffeeShop.Infrastructure.pdb
+C:\Users\juriy\Desktop\CoffeShopGit\CoffeeShop.Infrastructure\obj\Debug\net10.0\ref\CoffeeShop.Infrastructure.dll
