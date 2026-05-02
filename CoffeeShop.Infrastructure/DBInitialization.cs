@@ -1,8 +1,12 @@
-﻿using CoffeeShop.Core.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+
+// Підключаємо наші нові контексти
+using CoffeeShop.Core.Sales;
+using CoffeeShop.Core.Catalog;
+using CoffeeShop.Core.Customers;
+using CoffeeShop.Core.Loyalty;
 
 namespace CoffeeShop.Infrastructure;
 
@@ -10,24 +14,11 @@ public static class DbInitializer
 {
     public static void Initialize(AppDbContext context)
     {
-        context.Database.ExecuteSqlRaw("SET FOREIGN_KEY_CHECKS = 0;");
+        // 1. Повністю видаляємо стару базу даних (зникне проблема з відсутніми колонками)
+        context.Database.EnsureDeleted();
         
-        context.Database.ExecuteSqlRaw("DELETE FROM OrderProduct;"); 
-        context.Database.ExecuteSqlRaw("DELETE FROM Orders;");
-        context.Database.ExecuteSqlRaw("DELETE FROM Customers;");
-        context.Database.ExecuteSqlRaw("DELETE FROM Subscriptions;");
-        context.Database.ExecuteSqlRaw("DELETE FROM Products;");
-        context.Database.ExecuteSqlRaw("DELETE FROM Categories;");
-        context.Database.ExecuteSqlRaw("DELETE FROM PromoActions;"); // Додано очищення таблиці промоакцій
-        
-        context.Database.ExecuteSqlRaw("ALTER TABLE Orders AUTO_INCREMENT = 1;");
-        context.Database.ExecuteSqlRaw("ALTER TABLE Customers AUTO_INCREMENT = 1;");
-        context.Database.ExecuteSqlRaw("ALTER TABLE Subscriptions AUTO_INCREMENT = 1;");
-        context.Database.ExecuteSqlRaw("ALTER TABLE Products AUTO_INCREMENT = 1;");
-        context.Database.ExecuteSqlRaw("ALTER TABLE Categories AUTO_INCREMENT = 1;");
-        context.Database.ExecuteSqlRaw("ALTER TABLE PromoActions AUTO_INCREMENT = 1;"); // Скидання лічильника для промоакцій
-        
-        context.Database.ExecuteSqlRaw("SET FOREIGN_KEY_CHECKS = 1;");
+        // 2. Створюємо базу з нуля на основі нашої нової DDD-моделі
+        context.Database.EnsureCreated();
 
         // 1. ПІДПИСКИ
         var basicSub = new Subscription { Type = SubscriptionType.BasicCoffeePass, Price = 19.99m, DurationInDays = 30 };
@@ -43,7 +34,6 @@ public static class DbInitializer
         context.SaveChanges();
 
         // 3. ПРОМОАКЦІЇ
-        // Часова акція: знижка 15% на все замовлення, діє 7 днів від поточного моменту
         var timePromo = new PromoAction 
         { 
             PromoCode = "BLACKFRIDAY", 
@@ -53,7 +43,6 @@ public static class DbInitializer
             IsActive = true 
         };
         
-        // Категорійна акція: знижка 20% тільки на товари з категорії "Tea"
         var categoryPromo = new PromoAction 
         { 
             PromoCode = "TEALOVER", 
@@ -66,7 +55,7 @@ public static class DbInitializer
         context.PromoActions.AddRange(timePromo, categoryPromo);
         context.SaveChanges();
 
-        // 4. ПРОДУКТИ (20 позицій з фронтенду)
+        // 4. ПРОДУКТИ
         var products = new List<Product>
         {
             new Product { Name = "Ethiopia Sidamo", Price = 320m, Description = "яскраві нотки бергамоту та чорного чаю.", CategoryId = catCoffee.Id, StockQuantity = 50, RoastLevel = 3, Weight = 250 },
@@ -100,15 +89,17 @@ public static class DbInitializer
         context.Customers.AddRange(cust1, cust2, cust3);
         context.SaveChanges();
 
-        // 6. ТЕСТОВЕ ЗАМОВЛЕННЯ
-        var order = new Order 
-        { 
-            OrderDate = DateTime.Now, 
-            TotalAmount = products[0].Price + products[1].Price, 
-            Status = OrderStatus.Paid,
-            CustomerId = cust1.Id,
-            Products = new List<Product> { products[0], products[1] }
-        };
+        // 6. ТЕСТОВЕ ЗАМОВЛЕННЯ (Оновлено під DDD)
+        // Створюємо замовлення через фабричний метод (Status = New, TotalAmount = 0, генерується подія)
+        var order = Order.Create(cust1.Id);
+        
+        // Додаємо продукти через метод агрегату (він сам перерахує TotalAmount)
+        order.AddProduct(products[0]);
+        order.AddProduct(products[1]);
+        
+        // Міняємо статус на Paid через бізнес-метод
+        order.ChangeStatus(OrderStatus.Paid);
+
         context.Orders.Add(order);
         context.SaveChanges();
     }

@@ -2,6 +2,7 @@ using dotenv.net;
 using Microsoft.EntityFrameworkCore; 
 using CoffeeShop.Infrastructure;    
 using System.Text.Json.Serialization;
+using CoffeeShop.API.UseCases; // Підключаємо папку з нашим Command Handler'ом
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         connectionString, 
         ServerVersion.AutoDetect(connectionString)
     ));
+
+// РЕЄСТРУЄМО НАШ DDD COMMAND HANDLER
+builder.Services.AddScoped<CreateOrderCommandHandler>();
 
 // --- ПІДКЛЮЧЕННЯ СВАГГЕРУ ДЛЯ ДЕМОНСТРАЦІЇ ЗАПИТІВ HTTP ---
 builder.Services.AddEndpointsApiExplorer();
@@ -49,7 +53,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<AppDbContext>();
-        Console.WriteLine("Спроба підключення до бази даних MySQL...");
+        Console.WriteLine("Спроба підключення до базы даних MySQL...");
         
         if (!context.Database.CanConnect())
         {

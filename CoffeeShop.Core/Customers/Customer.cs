@@ -1,4 +1,6 @@
-﻿namespace CoffeeShop.Core.Entities;
+﻿using CoffeeShop.Core.Loyalty;
+
+namespace CoffeeShop.Core.Customers;
 
 public class Customer
 {

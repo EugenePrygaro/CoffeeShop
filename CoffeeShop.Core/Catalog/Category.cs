@@ -1,4 +1,4 @@
-﻿namespace CoffeeShop.Core.Entities;
+﻿namespace CoffeeShop.Core.Catalog;
 
 public class Category
 {
@@ -6,6 +6,6 @@ public class Category
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
 
-    // НОВЕ: Список продуктів, що належать до цієї категорії
+    // Список продуктів, що належать до цієї категорії
     public List<Product> Products { get; set; } = new();
 }

@@ -1,4 +1,6 @@
-﻿namespace CoffeeShop.Core.Entities;
+﻿using CoffeeShop.Core.Sales;
+
+namespace CoffeeShop.Core.Catalog;
 
 public class Product
 {
@@ -6,14 +8,14 @@ public class Product
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
-    public int StockQuantity { get; set; } // Кількість на складі
-    public int RoastLevel { get; set; }     // Рівень обсмаження (1-5)
-    public double Weight { get; set; }      // Вага в грамах або кг
+    public int StockQuantity { get; set; } 
+    public int RoastLevel { get; set; }     
+    public double Weight { get; set; }      
 
     // Зв'язок із категорією
     public int CategoryId { get; set; }
     public Category? Category { get; set; }
     
-    // Зв'язок із замовленнями (Many-to-Many)
+    // Зв'язок із замовленнями 
     public List<Order> Orders { get; set; } = new();
 }

@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using CoffeeShop.Core.Entities;
+using CoffeeShop.Core.Sales; // Змінили на новий простір імен
 using System;
 
 namespace CoffeeShop.Tests;
@@ -10,8 +10,8 @@ public class OrderStatusTests
     [Fact]
     public void ChangeStatus_FromNewToPaid_ShouldUpdateStatus()
     {
-        // Arrange: створюємо нове замовлення
-        var order = new Order { Status = OrderStatus.New };
+        // Arrange: створюємо нове замовлення через фабричний метод (статус автоматично New)
+        var order = Order.Create(customerId: 1);
 
         // Act: намагаємося змінити статус на оплачений
         order.ChangeStatus(OrderStatus.Paid);
@@ -25,7 +25,7 @@ public class OrderStatusTests
     public void ChangeStatus_FromNewToDelivered_ShouldThrowException()
     {
         // Arrange
-        var order = new Order { Status = OrderStatus.New };
+        var order = Order.Create(customerId: 1);
 
         // Act & Assert
         // Оскільки метод має викинути помилку, ми "ловимо" її за допомогою Assert.Throws
@@ -39,8 +39,9 @@ public class OrderStatusTests
     [Fact]
     public void ChangeStatus_FromPaidToNew_ShouldThrowException()
     {
-        // Arrange: замовлення вже оплачене
-        var order = new Order { Status = OrderStatus.Paid };
+        // Arrange: створюємо замовлення і легально переводимо його в статус Paid
+        var order = Order.Create(customerId: 1);
+        order.ChangeStatus(OrderStatus.Paid);
 
         // Act & Assert
         var exception = Assert.Throws<InvalidOperationException>(() => order.ChangeStatus(OrderStatus.New));
@@ -51,8 +52,10 @@ public class OrderStatusTests
     [Fact]
     public void ChangeStatus_WhenAlreadyDelivered_ShouldThrowException()
     {
-        // Arrange: замовлення вже доставлене клієнту
-        var order = new Order { Status = OrderStatus.Delivered };
+        // Arrange: створюємо замовлення і легально проводимо його до статусу Delivered
+        var order = Order.Create(customerId: 1);
+        order.ChangeStatus(OrderStatus.Paid);      // Спочатку оплачуємо
+        order.ChangeStatus(OrderStatus.Delivered); // Потім доставляємо
 
         // Act & Assert
         var exception = Assert.Throws<InvalidOperationException>(() => order.ChangeStatus(OrderStatus.Paid));

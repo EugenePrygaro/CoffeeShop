@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CoffeeShop.Infrastructure;
-using CoffeeShop.Core.Entities;
+using CoffeeShop.Core.Sales;
+using CoffeeShop.Core.Catalog;
+using CoffeeShop.Core.Customers;
+using CoffeeShop.Core.Loyalty;
 
 namespace CoffeeShop.API.Controllers;
 

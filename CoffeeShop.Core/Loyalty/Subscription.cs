@@ -1,4 +1,6 @@
-﻿namespace CoffeeShop.Core.Entities;
+﻿using CoffeeShop.Core.Customers;
+
+namespace CoffeeShop.Core.Loyalty;
 
 public enum SubscriptionType
 {
